@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import CheckIcon from '@mui/icons-material/Check';
 import { useNavigate } from "react-router-dom";
+import { Link } from 'react-router-dom'
 
 
 export default function Header() {
@@ -42,9 +43,15 @@ export default function Header() {
 				>
 					Bucket List
 				</Typography>
-                <Button color="inherit" onClick={this.routeChange}>Home</Button>
-				<Button color="inherit">Blog</Button>
-                <Button color="inherit">Who is Nicole?</Button>
+                <Link to="/">
+                    <Button variant="contained" disableElevation>Home</Button>
+                </Link>
+                <Link to="/">
+                    <Button variant="contained" disableElevation>Blog</Button>
+                </Link>
+                <Link to="/">
+                    <Button variant="contained" disableElevation>Who is Nicole?</Button>
+                </Link>
 			</Toolbar>
 		</AppBar>
 	);
