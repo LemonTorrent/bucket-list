@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import Modal from "./components/Modal";
+import Header from "./components/Header";
 import axios from "axios";
 import Cookies from 'js-cookie';
+import { Checkbox } from "@mui/material";
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 
@@ -78,6 +80,30 @@ class App extends Component {
     return this.setState({ viewCompleted: false });
   };
 
+  // checkOff = (item) => {
+  //   item.completed = !item.completed;
+  //   this.setState({ activeItem: item });
+  // };
+
+  checkOff = (item) => {
+    console.log("Clicked ", item)
+    item.completed = !item.completed
+    this.setState({ activeItem: item, });
+    console.log("Afterwards: ", item)
+
+    axios
+        .put(`/api/todos/${item.id}/`, item)
+        .then((res) => this.refreshList());
+      return;
+
+    this.refreshList()
+
+
+    // axios
+      // .put(`/api/todos/${item.id}/`)
+      // .then((res) => this.refreshList());
+  };
+
   renderTabList = () => {
     return (
       <div className="nav nav-tabs">
@@ -108,6 +134,15 @@ class App extends Component {
         key={item.id}
         className="list-group-item d-flex justify-content-between align-items-center"
       >
+
+        <div onClick={() => this.checkOff(item)}>
+          {item.completed ? (
+          <Checkbox checked/>
+        ) : (
+          <Checkbox />
+        )}
+        </div>
+        
         <span
           className={`todo-title mr-2 ${
             this.state.viewCompleted ? "completed-todo" : ""
@@ -137,7 +172,7 @@ class App extends Component {
   render() {
     return (
       <main className="container">
-        <h1 className="text-white text-uppercase text-center my-4">Todo app</h1>
+        <h1 className="text-white text-uppercase text-center my-4">Bucket List App</h1>
         <div className="row">
           <div className="col-md-6 col-sm-10 mx-auto p-0">
             <div className="card p-3">
