@@ -79,11 +79,6 @@ class Home extends Component {
     return this.setState({ viewCompleted: false });
   };
 
-  // checkOff = (item) => {
-  //   item.completed = !item.completed;
-  //   this.setState({ activeItem: item });
-  // };
-
   checkOff = (item) => {
     console.log("Clicked ", item)
     item.completed = !item.completed
@@ -94,13 +89,6 @@ class Home extends Component {
         .put(`/api/todos/${item.id}/`, item)
         .then((res) => this.refreshList());
       return;
-
-    this.refreshList()
-
-
-    // axios
-      // .put(`/api/todos/${item.id}/`)
-      // .then((res) => this.refreshList());
   };
 
   renderTabList = () => {

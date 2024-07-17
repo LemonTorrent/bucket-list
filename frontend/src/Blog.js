@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-import Modal from "./components/Modal";
+import BlogModal from "./components/BlogModal";
 import axios from "axios";
 import Cookies from 'js-cookie';
-import { Checkbox } from "@mui/material";
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 
@@ -31,6 +30,7 @@ class Blog extends Component {
     axios
       .get("/api/blogs/")
       .then((res) => this.setState({ blogPosts: res.data }))
+      .then(() => console.log("Found data", this.state.blogPosts))
       .catch((err) => console.log(err));
   };
 
@@ -88,35 +88,17 @@ class Blog extends Component {
         .put(`/api/blogs/${item.id}/`, item)
         .then((res) => this.refreshList());
       return;
-
-    this.refreshList()
-
   };
 
   renderItems = () => {
-    const { viewCompleted } = this.state;
-    const newItems = this.state.blogPosts.filter(
-      (item) => item.completed === viewCompleted
-    );
-
-    return newItems.map((item) => (
+    return this.state.blogPosts.map((item) => (
       <li
         key={item.id}
         className="list-group-item d-flex justify-content-between align-items-center"
       >
-
-        <div onClick={() => this.checkOff(item)}>
-          {item.completed ? (
-          <Checkbox checked/>
-        ) : (
-          <Checkbox />
-        )}
-        </div>
         
         <span
-          className={`todo-title mr-2 ${
-            this.state.viewCompleted ? "completed-todo" : ""
-          }`}
+          className={`blog-title mr-2`}
           title={item.description}
         >
           {item.title}
@@ -135,6 +117,7 @@ class Blog extends Component {
             Delete
           </button>
         </span>
+        <p>{item.description}</p>
       </li>
     ));
   };
@@ -144,7 +127,7 @@ class Blog extends Component {
       <main className="container">
         <h1 className="text-uppercase text-center my-4">Bucket List Blog</h1>
         <div className="row">
-          <div className="col-md-6 col-sm-10 mx-auto p-0">
+          <div className="mx-auto">
             <div className="card p-3">
               <div className="mb-4">
                 <button
@@ -161,7 +144,7 @@ class Blog extends Component {
           </div>
         </div>
         {this.state.modal ? (
-          <Modal
+          <BlogModal
             activeItem={this.state.activeItem}
             toggle={this.toggle}
             onSave={this.handleSubmit}
