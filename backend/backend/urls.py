@@ -17,10 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
-from todo import views
+from todo import views as todo_views
+from blog import views as blog_views
 
 router = routers.DefaultRouter()
-router.register(r'todos', views.TodoView, 'todo')
+router.register(r'todos', todo_views.TodoView, 'todo')
+router.register(r'blogs', blog_views.BlogView, 'blog')
 
 urlpatterns = [
     path('admin/', admin.site.urls),

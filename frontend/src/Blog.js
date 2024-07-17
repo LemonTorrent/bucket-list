@@ -6,17 +6,17 @@ import { Checkbox } from "@mui/material";
 axios.defaults.xsrfHeaderName = "X-CSRFTOKEN";
 axios.defaults.xsrfCookieName = "csrftoken";
 
-class Home extends Component {
+class Blog extends Component {
   constructor(props) {
     super(props);
     this.state = {
       viewCompleted: false,
-      todoList: [],
+      blogPosts: [],
       modal: false,
       activeItem: {
         title: "",
+        date: null,
         description: "",
-        completed: false,
       },
       csrftoken : Cookies.get('csrftoken'),
     };
@@ -29,8 +29,8 @@ class Home extends Component {
 
   refreshList = () => {
     axios
-      .get("/api/todos/")
-      .then((res) => this.setState({ todoList: res.data }))
+      .get("/api/blogs/")
+      .then((res) => this.setState({ blogPosts: res.data }))
       .catch((err) => console.log(err));
   };
 
@@ -45,19 +45,18 @@ class Home extends Component {
 
     if (item.id) {
       axios
-        .put(`/api/todos/${item.id}/`, item)
+        .put(`/api/blogs/${item.id}/`, item)
         .then((res) => this.refreshList());
       return;
     }
     axios
-      // .post("/api/todos/", item, { headers: { 'X-CSRFToken': this.state.csrftoken } })
-      .post("/api/todos/", item)
+      .post("/api/blogs/", item)
       .then((res) => this.refreshList());
   };
 
   handleDelete = (item) => {
     axios
-      .delete(`/api/todos/${item.id}/`)
+      .delete(`/api/blogs/${item.id}/`)
       .then((res) => this.refreshList());
   };
 
@@ -79,11 +78,6 @@ class Home extends Component {
     return this.setState({ viewCompleted: false });
   };
 
-  // checkOff = (item) => {
-  //   item.completed = !item.completed;
-  //   this.setState({ activeItem: item });
-  // };
-
   checkOff = (item) => {
     console.log("Clicked ", item)
     item.completed = !item.completed
@@ -91,40 +85,17 @@ class Home extends Component {
     console.log("Afterwards: ", item)
 
     axios
-        .put(`/api/todos/${item.id}/`, item)
+        .put(`/api/blogs/${item.id}/`, item)
         .then((res) => this.refreshList());
       return;
 
     this.refreshList()
 
-
-    // axios
-      // .put(`/api/todos/${item.id}/`)
-      // .then((res) => this.refreshList());
-  };
-
-  renderTabList = () => {
-    return (
-      <div className="nav nav-tabs">
-        <span
-          onClick={() => this.displayCompleted(true)}
-          className={this.state.viewCompleted ? "nav-link active" : "nav-link"}
-        >
-          Complete
-        </span>
-        <span
-          onClick={() => this.displayCompleted(false)}
-          className={this.state.viewCompleted ? "nav-link" : "nav-link active"}
-        >
-          Incomplete
-        </span>
-      </div>
-    );
   };
 
   renderItems = () => {
     const { viewCompleted } = this.state;
-    const newItems = this.state.todoList.filter(
+    const newItems = this.state.blogPosts.filter(
       (item) => item.completed === viewCompleted
     );
 
@@ -171,7 +142,7 @@ class Home extends Component {
   render() {
     return (
       <main className="container">
-        <h1 className="text-uppercase text-center my-4">Bucket List Ideas</h1>
+        <h1 className="text-uppercase text-center my-4">Bucket List Blog</h1>
         <div className="row">
           <div className="col-md-6 col-sm-10 mx-auto p-0">
             <div className="card p-3">
@@ -183,7 +154,6 @@ class Home extends Component {
                   Add task
                 </button>
               </div>
-              {this.renderTabList()}
               <ul className="list-group list-group-flush border-top-0">
                 {this.renderItems()}
               </ul>
@@ -202,4 +172,4 @@ class Home extends Component {
   }
 }
 
-export default Home;
+export default Blog;
