@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.btn-primary-blog {
+  width: 100%;
+}
+
+.list-blog-cards {
+  width: 100% !important;
+}
+
+.content-box {
+  width: 100%;
+}

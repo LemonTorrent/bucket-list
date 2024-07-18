@@ -96,28 +96,31 @@ class Blog extends Component {
         key={item.id}
         className="list-group-item d-flex justify-content-between align-items-center"
       >
-        
-        <span
-          className={`blog-title mr-2`}
-          title={item.description}
-        >
-          {item.title}
-        </span>
-        <span>
-          <button
-            className="btn btn-secondary mr-2"
-            onClick={() => this.editItem(item)}
-          >
-            Edit
-          </button>
-          <button
-            className="btn btn-danger"
-            onClick={() => this.handleDelete(item)}
-          >
-            Delete
-          </button>
-        </span>
-        <p>{item.description}</p>
+        <div className="list-blog-cards">
+            <div className="first-row">
+                <span
+                className={`blog-title mr-2`}
+                title={item.description}
+                >
+                {item.title}
+                </span>
+                <span>
+                <button
+                    className="btn btn-secondary mr-2"
+                    onClick={() => this.editItem(item)}
+                >
+                    Edit
+                </button>
+                <button
+                    className="btn btn-danger"
+                    onClick={() => this.handleDelete(item)}
+                >
+                    Delete
+                </button>
+                </span>
+            </div>
+            <p>{item.description}</p>
+        </div>
       </li>
     ));
   };
@@ -126,15 +129,15 @@ class Blog extends Component {
     return (
       <main className="container">
         <h1 className="text-uppercase text-center my-4">Bucket List Blog</h1>
-        <div className="row">
-          <div className="mx-auto">
+        <div className="content-box row max-w-full">
+          <div className="p-0">
             <div className="card p-3">
               <div className="mb-4">
                 <button
-                  className="btn btn-primary"
+                  className="btn btn-primary btn-primary-blog"
                   onClick={this.createItem}
                 >
-                  Add task
+                  Add Post
                 </button>
               </div>
               <ul className="list-group list-group-flush border-top-0">
