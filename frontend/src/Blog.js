@@ -97,12 +97,12 @@ class Blog extends Component {
         className="list-group-item d-flex justify-content-between align-items-center"
       >
         <div className="list-blog-cards">
-            <div className="first-row">
+            <div className="first-row pb-2">
                 <span
                 className={`blog-title mr-2`}
                 title={item.description}
                 >
-                {item.title}
+                {item.title} - {item.date}
                 </span>
                 <span>
                 <button
@@ -130,7 +130,7 @@ class Blog extends Component {
       <main className="container">
         <h1 className="text-uppercase text-center my-4">Bucket List Blog</h1>
         <div className="content-box row max-w-full">
-          <div className="p-0">
+          <div className="content-box p-0 ">
             <div className="card p-3">
               <div className="mb-4">
                 <button
