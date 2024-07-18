@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-2-j-ge7#&vvg*l)l)(jw1iea6=c0#((6==q)2^!#66dh9g4d#^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['52.26.115.254', 'localhost',]
+ALLOWED_HOSTS = ['52.26.115.254', 'localhost', '127.0.0.1:8000', '*']
 
 
 # Application definition
@@ -134,5 +134,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_WHITELIST = [
-     'http://localhost:3000'
+     'http://localhost:3000',
+     'http://bucket-list-frontend.s3-website-us-west-2.amazonaws.com/'
 ]
