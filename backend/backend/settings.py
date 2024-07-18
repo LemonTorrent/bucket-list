@@ -135,5 +135,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ORIGIN_WHITELIST = [
      'http://localhost:3000',
-     'http://bucket-list-frontend.s3-website-us-west-2.amazonaws.com/'
+     'http://bucket-list-frontend.s3-website-us-west-2.amazonaws.com'
 ]
